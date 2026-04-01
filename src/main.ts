@@ -1,16 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { setupSwagger } from './config/swagger.config';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const options = new DocumentBuilder()
-    .setTitle('Billing API')
-    .setDescription('API for managing billing operations')
-    .setVersion('1.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // removes unwanted fields
+      forbidNonWhitelisted: true, // throws error for extra fields
+      transform: true, // auto converts types
+    }),
+  );
+
+  if (process.env.NODE_ENV !== 'production') {
+    setupSwagger(app);
+  }
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

@@ -8,7 +8,7 @@ export class ControllerCheckController {
   @ApiOperation({ summary: 'Check cart status' })
   @ApiResponse({
     status: 200,
-    description: 'Cart is valid',
+    description: 'Controller is valid',
     schema: {
       example: {
         status: 'ok',
@@ -24,10 +24,10 @@ export class ControllerCheckController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Update cart status' })
+  @ApiOperation({ summary: 'Update controller status' })
   @ApiResponse({
     status: 200,
-    description: 'Cart updated successfully',
+    description: 'Controller updated successfully',
     schema: {
       example: {
         status: 'ok',

@@ -5,7 +5,7 @@ import { UserEntity } from "./user.entity";
 export class CustomerEntity extends BaseEntity {
     
     @PrimaryGeneratedColumn("increment")
-    id: number;
+    id : number;
 
     // 🔗 Relation with User
     @ManyToOne(() => UserEntity, (user) => user.id, { nullable: false })
